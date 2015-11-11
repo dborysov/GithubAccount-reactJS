@@ -3,7 +3,7 @@ const Card = React.createClass({
         return {};
     },
     componentDidMount: function() {
-        $.get('https://api.github.com/users/' + this.props.login, data {
+        $.get('https://api.github.com/users/' + this.props.login, data => {
             this.setState(data);
         });
     },
@@ -19,11 +19,18 @@ const Card = React.createClass({
 });
 
 const Main = React.createClass({
+    getInitialState: () => {
+        return {logins: ['zpao', 'fisherwebdev']}
+    },
     render: function() {
+        let cards = this.state.logins.map(function(login) {
+            return (
+                <Card login={login} />
+            )
+        });
         return (
             <div>
-                <Card login="spicyj" />
-                <Card login="peterhunt" />
+                {cards}
             </div>
         )
     }
